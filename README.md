@@ -2,10 +2,10 @@
 
 ## To-Do List
 
-1. ✔ **Define Software Architecture:**
+1. ✅**Define Software Architecture:**
    - Outline the overall structure and design principles for the Menu Software (Version 121023) and associated modules.
 
-2. ✔ **Setup Development Environment:**
+2. ✅**Setup Development Environment:**
    - Establish a development environment with necessary tools, libraries, and frameworks for firmware development.
 
 3. **Implement PID Operating Software:**
