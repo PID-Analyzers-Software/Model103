@@ -1,4 +1,4 @@
-# Portable Gas Analyzer Model 103 Software Development
+# PID Model 103 Software Development
 
 ## To-Do List
 
