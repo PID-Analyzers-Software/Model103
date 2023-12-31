@@ -83,3 +83,6 @@
 21. **Post-Deployment Support:**
     - Provide ongoing support for users, addressing any issues that may arise after deployment.
     - *Estimated Completion Date: MM/DD/YYYY*
+   
+<img width="464" alt="image" src="https://github.com/PID-Analyzers-Software/Model103/assets/26637782/2690395b-ba03-4f5b-90ce-0bf5832a8b1d">
+
