@@ -206,7 +206,7 @@ void setup() {
 
   // Range Menus
   vector<Menu*> rangeMenus;
-  rangeMenus.push_back(new RangeMenuItem("0-2500 ppm", "Range",  0, &g_range, rangeMenuRenderer));
+  rangeMenus.push_back(new RangeMenuItem("0-500 ppm", "Range",  0, &g_range, rangeMenuRenderer));
   rangeMenus.push_back(new RangeMenuItem("0-5000 ppm", "Range",  1, &g_range, rangeMenuRenderer));
 
   CompositeMenu* rangeMenu = new CompositeMenu("Range", "Main Menu" , rangeMenus);
@@ -295,8 +295,8 @@ void setup() {
   horizontalMenus.push_back(runMenu);
   //horizontalMenus.push_back(libraryMenu);
   //horizontalMenus.push_back(timerMenu);
-  //horizontalMenus.push_back(rangeMenu);
-  //horizontalMenus.push_back(dataLoggerMenu);
+  horizontalMenus.push_back(rangeMenu);
+  horizontalMenus.push_back(dataLoggerMenu);
   //horizontalMenus.push_back(dateTimeMenu);
   horizontalMenus.push_back(alarmMenu);
   horizontalMenus.push_back(hourMenu);
