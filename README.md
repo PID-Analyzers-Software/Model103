@@ -8,29 +8,25 @@
 2. ✅**Setup Development Environment:**
    - Establish a development environment with necessary tools, libraries, and frameworks for firmware development.
 
-3. **Implement PID Operating Software:**
+3. ✅**Implement PID Operating Software:**
    - Develop the core PID functionality for both channels (0-500 ppm and 0-5,000 ppm) with optional configurations for different ranges.
-   - *Estimated Completion Date: MM/DD/YYYY*
 
-4. **Keypad and Menu Navigation Implementation:**
+4. ✅**Keypad and Menu Navigation Implementation:**
    - Interpret signals from the 4-position keypad and implement functionality for menu navigation (MODE, Up Arrow, Down Arrow, Select).
-   - *Estimated Completion Date: MM/DD/YYYY*
 
-5. **Display Integration:**
+5. ✅**Display Integration:**
    - Interface with the 2.4” OLED display to present relevant information, configurations, and menu options.
-   - *Estimated Completion Date: MM/DD/YYYY*
 
 6. **Configuration Options Software:**
    - Develop software to support different configurations: PID ppm, PID ppm & ppb optional, PID and Compound Specific modes.
-   - *Estimated Completion Date: MM/DD/YYYY*
+   - "PPB" not finished
+   - *Estimated Completion Date: 01/05/2024*
 
-7. **Calibration Software Development:**
+7. ✅**Calibration Software Development:**
    - Create a calibration menu with options for zero calibration, calibration gas value adjustment, and calibration gas selection.
-   - *Estimated Completion Date: MM/DD/YYYY*
 
-8. **Alarm System Implementation:**
+8. ✅**Alarm System Implementation:**
    - Develop software to set alarm values and control the activation or deactivation of alarms through the menu.
-   - *Estimated Completion Date: MM/DD/YYYY*
 
 9. **Log Menu Software Implementation:**
    - Implement manual and automatic logging of gas concentration data with options for turning off logging.
