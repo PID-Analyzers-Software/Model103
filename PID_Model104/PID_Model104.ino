@@ -82,6 +82,9 @@ const char* password = "Polaroid1";
 
 volatile bool CALIBRATION_MODE = false;
 
+unsigned long buttonPressStartTime = 0;
+bool isButtonBeingPressed = false;
+
 void setupWiFi() {
   Serial.print("Setting AP (Access Point)…");
   // Remove the password parameter, if you want the AP (Access Point) to be open
@@ -115,7 +118,7 @@ void setup() {
   // Gas Manager
   g_gasManager.setConfigurationManager(&g_configurationManager);
 
-  g_gasManager.addGas(Gas("Air", 1.0));
+  g_gasManager.addGas(Gas("Benzene", 1.0));
   g_gasManager.addGas(Gas("O2", 1.0));
   g_gasManager.addGas(Gas("N2", 1.0));
   g_gasManager.addGas(Gas("He", 5.73));
@@ -182,7 +185,7 @@ void setup() {
   vector<Menu*> gasMenus;
 
 
-  gasMenus.push_back(new GasMenuItem("NH3", "LIBRARY",  0, &g_gasManager, gasMenuRenderer));
+  gasMenus.push_back(new GasMenuItem("Benzene", "LIBRARY",  0, &g_gasManager, gasMenuRenderer));
   gasMenus.push_back(new GasMenuItem("H2S", "LIBRARY", 1, &g_gasManager, gasMenuRenderer));
   gasMenus.push_back(new GasMenuItem("CO", "LIBRARY", 2, &g_gasManager, gasMenuRenderer));
   gasMenus.push_back(new GasMenuItem("O2", "LIBRARY",  3, &g_gasManager, gasMenuRenderer));
@@ -206,7 +209,7 @@ void setup() {
 
   // Range Menus
   vector<Menu*> rangeMenus;
-  rangeMenus.push_back(new RangeMenuItem("0-500 ppm", "Range",  0, &g_range, rangeMenuRenderer));
+  rangeMenus.push_back(new RangeMenuItem("0-2500 ppm", "Range",  0, &g_range, rangeMenuRenderer));
   rangeMenus.push_back(new RangeMenuItem("0-5000 ppm", "Range",  1, &g_range, rangeMenuRenderer));
 
   CompositeMenu* rangeMenu = new CompositeMenu("Range", "Main Menu" , rangeMenus);
@@ -293,7 +296,7 @@ void setup() {
   vector<Menu*> horizontalMenus;
 
   horizontalMenus.push_back(runMenu);
-  //horizontalMenus.push_back(libraryMenu);
+  horizontalMenus.push_back(libraryMenu);
   //horizontalMenus.push_back(timerMenu);
   horizontalMenus.push_back(rangeMenu);
   horizontalMenus.push_back(dataLoggerMenu);
@@ -401,11 +404,45 @@ void setupButtons()
 
 }
 
+void checkLongPress() {
+    const unsigned long LONG_PRESS_DURATION = 5000;  // 5 seconds in milliseconds
+    bool currentButtonState = digitalRead(c_BUTTON_S_PIN);  // Replace with your button pin
+
+    if (currentButtonState == HIGH && !isButtonBeingPressed) {
+        // Button press detected
+        isButtonBeingPressed = true;
+        buttonPressStartTime = millis();
+    } else if (currentButtonState == LOW && isButtonBeingPressed) {
+        // Button released
+        isButtonBeingPressed = false;
+    } else if (isButtonBeingPressed && millis() - buttonPressStartTime > LONG_PRESS_DURATION) {
+        // Long press detected
+        isButtonBeingPressed = false;
+        openCalibrationMenu();  // Call function to open calibration menu
+    }
+}
+
+void openCalibrationMenu() {
+    // Example of how to open the calibration menu. This is pseudo-code and will need to be adapted to your specific implementation.
+
+    // Assuming g_mainMenu is your global menu manager or controller
+    // Check if these methods or similar ones exist in your code
+
+    // Set the current menu to 'calMenu'
+
+    // If you need to open 'calvalueMenu' and 'calgasMenu' in a specific sequence, 
+    // you might have to implement additional logic here. 
+    // For example, you could add flags or states that check which part of the calibration process the user is in,
+    // and navigate to the appropriate menu accordingly.
+}
+
 
 void loop()
 {
 
   ButtonPressDetector::handleTick();
+  
+  checkLongPress();
 
   g_sleepTimer.handleTick();
   g_dataLogger.handleTick();
