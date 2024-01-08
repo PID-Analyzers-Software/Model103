@@ -239,9 +239,9 @@ public:
 		Serial.println("D" + String(m_buttonDownTotalMillis) + " S: " + String(m_buttonSTotalMillis) + " R: " + String(m_buttonRightTotalMillis));
 
 
-		if( m_buttonDownTotalMillis == 0 && m_buttonRightTotalMillis != 0 && m_buttonSTotalMillis == 0)
+		if( m_buttonDownTotalMillis != 0 && m_buttonRightTotalMillis == 0 && m_buttonSTotalMillis == 0)
 		{
-			if(m_buttonRightTotalMillis > c_BUTTON_COMBO_CLICK_HOLD_DURATION)
+			if(m_buttonDownTotalMillis > c_BUTTON_COMBO_CLICK_HOLD_DURATION)
 			{				
 				m_onCalibrationComboPressed();
 			}
