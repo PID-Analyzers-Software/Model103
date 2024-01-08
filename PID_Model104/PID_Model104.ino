@@ -299,7 +299,7 @@ void setup() {
   horizontalMenus.push_back(libraryMenu);
   //horizontalMenus.push_back(timerMenu);
   horizontalMenus.push_back(rangeMenu);
-  horizontalMenus.push_back(dataLoggerMenu);
+  //horizontalMenus.push_back(dataLoggerMenu);
   //horizontalMenus.push_back(dateTimeMenu);
   horizontalMenus.push_back(alarmMenu);
   horizontalMenus.push_back(hourMenu);
@@ -353,8 +353,7 @@ void setupButtons()
 
     g_sleepTimer.resetIdleCounter();
 
-    if (CALIBRATION_MODE)
-      return;
+
     Serial.println("PRESS DOWWWNNNN");
     g_mainMenu->print();
     g_mainMenu->moveToNext();
@@ -364,8 +363,7 @@ void setupButtons()
 
     g_sleepTimer.resetIdleCounter();
 
-    if (CALIBRATION_MODE)
-      return;
+
     Serial.println("PRESS S");
     g_mainMenu->action();
 
@@ -376,8 +374,7 @@ void setupButtons()
 
     g_sleepTimer.resetIdleCounter();
 
-    if (CALIBRATION_MODE)
-      return;
+
     Serial.println("PRESS RIGHT");
     ((CompositeMenu*)g_mainMenu->getCurrentMenu())->moveToNext();
   });
@@ -385,99 +382,24 @@ void setupButtons()
   keyboard->addOnCalibrationComboPressedFctor([] {
 
     g_sleepTimer.resetIdleCounter();
-
+    g_mainMenu->setCurrentMenu(6);
     Serial.println("PRESS CALIBRATION");
-
-    if (CALIBRATION_MODE)
-    {
-      Serial.println("WIFI OFF START");
-      WiFi.mode(WIFI_OFF);
-      while (WiFi.getMode() != WIFI_OFF)
-        delay(10);
-      Serial.println("WIFI OFF END");
-      g_webServer.stop();
-      Serial.println("g_webServer STOP");
-    }
-
-    CALIBRATION_MODE = !CALIBRATION_MODE;
+    return;
   });
 
 }
 
-void checkLongPress() {
-    const unsigned long LONG_PRESS_DURATION = 5000;  // 5 seconds in milliseconds
-    bool currentButtonState = digitalRead(c_BUTTON_S_PIN);  // Replace with your button pin
-
-    if (currentButtonState == HIGH && !isButtonBeingPressed) {
-        // Button press detected
-        isButtonBeingPressed = true;
-        buttonPressStartTime = millis();
-    } else if (currentButtonState == LOW && isButtonBeingPressed) {
-        // Button released
-        isButtonBeingPressed = false;
-    } else if (isButtonBeingPressed && millis() - buttonPressStartTime > LONG_PRESS_DURATION) {
-        // Long press detected
-        isButtonBeingPressed = false;
-        openCalibrationMenu();  // Call function to open calibration menu
-    }
-}
-
-void openCalibrationMenu() {
-    // Example of how to open the calibration menu. This is pseudo-code and will need to be adapted to your specific implementation.
-
-    // Assuming g_mainMenu is your global menu manager or controller
-    // Check if these methods or similar ones exist in your code
-
-    // Set the current menu to 'calMenu'
-
-    // If you need to open 'calvalueMenu' and 'calgasMenu' in a specific sequence, 
-    // you might have to implement additional logic here. 
-    // For example, you could add flags or states that check which part of the calibration process the user is in,
-    // and navigate to the appropriate menu accordingly.
-}
 
 
 void loop()
 {
 
   ButtonPressDetector::handleTick();
-  
-  checkLongPress();
 
   g_sleepTimer.handleTick();
   g_dataLogger.handleTick();
 
-  if (!CALIBRATION_MODE)
-  {
-    g_mainMenu->render();
-  }
-  else
-  {
-    g_sleepTimer.resetIdleCounter();
+  g_mainMenu->render();
 
-    if (WiFi.getMode() == WIFI_OFF)
-    {
-      setupWiFi();
-    }
-
-    g_webServer.handleTick();
-
-#ifdef USE_SSD1306_DISPLAY
-    display.clear();
-    display.setColor(WHITE);
-    display.setTextAlignment(TEXT_ALIGN_CENTER);
-    display.drawString(64, 0, "CALIBRATION MODE");
-    display.drawString(64, 20, WiFi.softAPIP().toString().c_str());
-    display.display();
-#endif
-
-#ifdef USE_SSD1327_DISPLAY
-    display.clearBuffer();
-    display.drawStr(64, 0, "CALIBRATION MODE");
-    display.drawStr(64, 20, WiFi.softAPIP().toString().c_str());
-    display.sendBuffer();
-#endif
-
-  } //END IS_CAL IF
   delay(10);
 }
