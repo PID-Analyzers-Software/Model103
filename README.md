@@ -83,7 +83,7 @@
 <img width="464" alt="image" src="https://github.com/PID-Analyzers-Software/Model103/assets/26637782/2690395b-ba03-4f5b-90ce-0bf5832a8b1d">
 
 
-## Offset Table
+## EEPROM Offset Table
 | Parameter           | Offset (Bytes) |
 |---------------------|----------------|
 | TIMER               | 0              |
