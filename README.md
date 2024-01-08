@@ -82,3 +82,25 @@
    
 <img width="464" alt="image" src="https://github.com/PID-Analyzers-Software/Model103/assets/26637782/2690395b-ba03-4f5b-90ce-0bf5832a8b1d">
 
+
+## EEPROM Offset Table
+| Parameter           | Offset (Bytes) |
+|---------------------|----------------|
+| TIMER               | 0              |
+| GAS_SLOPE           | 8              |
+| GAS_SELECT          | 24             |
+| GAS_INTERCEPT       | 28             |
+| GAS_SECONDP         | 36             |
+| GAS_INTERCEPT2      | 44             |
+| GAS_SECONDP2        | 52             |
+| GAS_INTERCEPT3      | 60             |
+| GAS_SECONDP3        | 68             |
+| GAS_INTERCEPT4      | 76             |
+| GAS_SECONDP4        | 84             |
+| DEVICE_ID           | 92             |
+| WIFI_SSID           | 124            |
+| WIFI_PASSWORD       | 156            |
+| RANGE               | 188            |
+| Calvalue            | 190            |
+| ALARM               | 192            |
+
