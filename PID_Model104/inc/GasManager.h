@@ -144,18 +144,26 @@ public:
             m_intercept = m_zero;
             Serial.println("calibrating for gas 1");
             EEPROM.writeDouble(12+m_selectedGas*16, m_intercept);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_intercept);
         }else if(m_selectedGas ==1){
             m_intercept2 = m_zero;
             Serial.println("calibrating for gas 2");
             EEPROM.writeDouble(12+m_selectedGas*16, m_intercept2);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_intercept2);
         }else if(m_selectedGas ==2){
             m_intercept3 = m_zero;
             Serial.println("calibrating for gas 3");
             EEPROM.writeDouble(12+m_selectedGas*16, m_intercept3);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_intercept3);
         }else if(m_selectedGas ==3){
             m_intercept4 = m_zero;
             Serial.println("calibrating for gas 4");
             EEPROM.writeDouble(12+m_selectedGas*16, m_intercept4);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_intercept4);
         }
 
         EEPROM.commit();
@@ -167,7 +175,6 @@ public:
         m_calgas = cal / 1000;
         int calvalue=Calvalue().getSelectedCalvalue();
         double calgasv = calvalue/1000.0;
-        Serial.println("!!!!!!!!!!!!!!!");
         Serial.println(calvalue);
         Serial.println(calgasv);
         m_secondp = (m_calgas - m_zero) / calgasv;
@@ -176,17 +183,28 @@ public:
             Serial.println("calibrating for gas 1");
             Serial.println(m_secondp);
             EEPROM.writeDouble(20+m_selectedGas*16, m_secondp);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_secondp);
         }else if(m_selectedGas ==1){
             m_secondp2 = (m_calgas - m_zero) / calgasv;
+            serial.println("calibrating for gas 2");
             EEPROM.writeDouble(20+m_selectedGas*16, m_secondp2);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_secondp2);
         }else if(m_selectedGas ==2){
             m_secondp3 = (m_calgas - m_zero) / calgasv;
+            serial.println("calibrating for gas 3");
             EEPROM.writeDouble(20+m_selectedGas*16, m_secondp3);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_secondp3);
         }else if(m_selectedGas ==3){
             m_secondp4 = (m_calgas - m_zero) / calgasv;
+            serial.println("calibrating for gas 4");
             EEPROM.writeDouble(20+m_selectedGas*16, m_secondp4);
+            EEPROM.commit();
+            serial.print("Factors Saved to EEPROM: "); serial.println(m_secondp4);
         }
-        EEPROM.commit();
+
     }
 
     void calibrate3(){

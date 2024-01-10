@@ -74,7 +74,7 @@ void SSD1306RunMenuRenderer::render(Menu* menu)
 
   m_display->setTextAlignment(TEXT_ALIGN_CENTER);
   m_display->drawString(64, 0, String(selectedGas.getName()) );
-  m_display->drawString(114, 0, String("96%").c_str());
+  m_display->drawString(114, 0, String(String(v_b * 0.08333 - 250.0, 0) + "%").c_str());
   m_display->setTextAlignment(TEXT_ALIGN_CENTER);
   m_display->drawLine(0, 14, 256, 14);
   m_display->setFont(ArialMT_Plain_24);
@@ -270,7 +270,7 @@ void SSD1306WiFiDumpMenuRenderer::render(Menu* menu)
   m_display->setColor(WHITE);
   m_display->setTextAlignment(TEXT_ALIGN_CENTER);
   m_display->drawString(64, 0, "WIFI DATA DUMP");
-  m_display->drawLine(0, 14, 256, 14);
+  m_display->drawLine(0, 24, 256, 24);
   m_display->drawString(64, 30, menu->getName());
   m_display->drawString(64, 40, m_dataLogger->isWiFiDumpRunning() ? "Started" : "Idle");
   m_display->display();
@@ -393,7 +393,7 @@ void SSD1306ZEROMenuRenderer::render(Menu* menu)
   m_display->setColor(WHITE);
   m_display->setTextAlignment(TEXT_ALIGN_CENTER);
   m_display->drawString(64, 0, "Calibration - Zero");
-  m_display->drawLine(0, 14, 256, 14);
+  m_display->drawLine(10, 16, 256, 16);
   m_display->drawString(64, 22, "Zero Gas: 0 ppm");
   m_display->drawString(64, 32, String("Det: " + String(m_dataSource->getRawMiliVolts()) + "mV").c_str());
   m_display->drawString(64, 45, "Press S when Stable");
@@ -413,7 +413,7 @@ void SSD1306CalGasMenuRenderer::render(Menu* menu)
   m_display->setColor(WHITE);
   m_display->setTextAlignment(TEXT_ALIGN_CENTER);
   m_display->drawString(64, 0, "Calibration - Cal Gas");
-  m_display->drawLine(0, 14, 256, 14);
+  m_display->drawLine(10, 16, 256, 16);
   m_display->drawString(64, 22, String("Cal gas: " + String(calvalue) + " ppm").c_str());
   m_display->drawString(64, 33, String("Det: " + String(m_dataSource->getRawMiliVolts()) + "mV").c_str());
   m_display->drawString(64, 45, "Press S when Stable");
@@ -433,7 +433,7 @@ void SSD1306CalResMenuRenderer::render(Menu* menu)
   m_display->setColor(WHITE);
   m_display->setTextAlignment(TEXT_ALIGN_CENTER);
   m_display->drawString(64, 0, "Calibration - Result");
-  m_display->drawLine(0, 14, 256, 14);
+  m_display->drawLine(10, 16, 256, 16);
   m_display->drawString(64, 24, "Calibration Finished");
   m_display->drawString(64, 40, "<DOWN>: Restart");
   m_display->drawString(64, 48, "<UP>: Finish");
@@ -457,7 +457,7 @@ void SSD1327GasMenuRenderer::render(Menu* menu)
 {
   m_display->clearBuffer();
   m_display->drawStr(64, 0, menu->getParentName().c_str());
-  m_display->drawLine(0, 14, 256, 14);
+  m_display->drawLine(10, 24, 256, 24);
   m_display->drawStr(64, 30, menu->getName().c_str());
   m_display->sendBuffer();
 

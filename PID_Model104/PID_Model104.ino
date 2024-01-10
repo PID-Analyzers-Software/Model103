@@ -119,9 +119,9 @@ void setup() {
   g_gasManager.setConfigurationManager(&g_configurationManager);
 
   g_gasManager.addGas(Gas("Benzene", 1.0));
-  g_gasManager.addGas(Gas("O2", 1.0));
-  g_gasManager.addGas(Gas("N2", 1.0));
-  g_gasManager.addGas(Gas("He", 5.73));
+  g_gasManager.addGas(Gas("H2S", 1.0));
+  g_gasManager.addGas(Gas("CO", 1.0));
+  g_gasManager.addGas(Gas("O2", 5.73));
   g_gasManager.addGas(Gas("H2", 6.84));
   g_gasManager.addGas(Gas("ArCH4", 0.85));
   //
