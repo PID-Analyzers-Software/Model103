@@ -209,10 +209,21 @@ void setup() {
 
   // Range Menus
   vector<Menu*> rangeMenus;
-  rangeMenus.push_back(new RangeMenuItem("0-2500 ppm", "Range",  0, &g_range, rangeMenuRenderer));
-  rangeMenus.push_back(new RangeMenuItem("0-5000 ppm", "Range",  1, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("10 ppm", "Range", 0, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("100 ppm", "Range", 1, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("200 ppm", "Range", 2, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("300 ppm", "Range", 3, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("400 ppm", "Range", 4, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("500 ppm", "Range", 5, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("600 ppm", "Range", 6, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("700 ppm", "Range", 7, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("800 ppm", "Range", 8, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("900 ppm", "Range", 9, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("1000 ppm", "Range", 10, &g_range, rangeMenuRenderer));
+    rangeMenus.push_back(new RangeMenuItem("1100 ppm", "Range", 11, &g_range, rangeMenuRenderer));
 
-  CompositeMenu* rangeMenu = new CompositeMenu("Range", "Main Menu" , rangeMenus);
+
+    CompositeMenu* rangeMenu = new CompositeMenu("Range", "Main Menu" , rangeMenus);
 
 
   // Alarm Menus

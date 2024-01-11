@@ -9,7 +9,7 @@
 
 class Range
 {
-    std::array<int,2> m_rangeArray{{500, 5000}};
+    std::array<int, 12> m_rangeArray{{10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100}};
     int m_selectedRange = 0;
 
     unsigned long m_startMillis = 0;
