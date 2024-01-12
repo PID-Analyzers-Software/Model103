@@ -28,7 +28,7 @@ void ConfigurationManager::loadFromEEPROM()
     Serial.println("config: range: " + String(range));
     notifyParamChanged(c_RANGE_PARAM_NAME, String(range));
 
-    int alarm = EEPROM.read(132);
+    int alarm = EEPROM.read(162);
     Serial.println("config: alarm: " + String(alarm));
     notifyParamChanged(c_ALARM_PARAM_NAME, String(alarm));
 
