@@ -40,7 +40,6 @@
 using namespace std;
 
 #define USE_SSD1306_DISPLAY
-//#define USE_SSD1327_DISPLAY
 
 //Adafruit_SHT4x sht4 = Adafruit_SHT4x();
 
@@ -49,7 +48,7 @@ using namespace std;
 #define wifi_ssid "22CDPro"
 #define wifi_password "00525508"
 
-GasManager g_gasManager(1.73231201, -2.054456771, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+GasManager g_gasManager(-2.054456771, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
 WebServer g_webServer;
 
@@ -61,9 +60,6 @@ Adafruit_ADS1115 ads1115;
 SSD1306 display(0x3c, 23, 22);
 #endif
 
-#ifdef USE_SSD1327_DISPLAY
-U8G2_SSD1327_MIDAS_128X128_F_4W_SW_SPI display(U8G2_R0, /* clock=*/ 27, /* data=*/ 26, /* cs=*/ 25, /* dc=*/ 33, /* reset=*/ 32);
-#endif
 
 SleepTimer g_sleepTimer;
 
@@ -155,21 +151,6 @@ void setup() {
   MenuRenderer* CalGasMenuRenderer = new SSD1306CalGasMenuRenderer(&display, dataSource, &g_calvalue, &g_gasManager);
   MenuRenderer* CalResMenuRenderer = new SSD1306CalResMenuRenderer(&display, &g_gasManager);
 
-#endif
-
-#ifdef USE_SSD1327_DISPLAY
-
-  // Display
-  display.begin();
-
-  MenuRenderer* gasMenuRenderer = new SSD1327GasMenuRenderer(&display);
-  MenuRenderer* runMenuRenderer = new SSD1327RunMenuRenderer(&display, dataSource, &g_gasManager);
-  MenuRenderer* sleepTimerMenuRenderer = new SSD1327SleepTimerMenuRenderer(&display, &g_sleepTimer);
-  MenuRenderer* flashLoggerMenuRenderer = new SSD1327FlashLoggerMenuRenderer(&display, &g_dataLogger);
-  MenuRenderer* wifiDumpMenuRenderer = new SSD1327WiFiDumpMenuRenderer(&display, &g_dataLogger);
-  MenuRenderer* wifiRealTimeDumpMenuRenderer = new SSD1327WiFiRealTimeDumpMenuRenderer(&display, &g_dataLogger);
-  MenuRenderer* NTPSyncMenuRenderer = new SSD1327NTPSyncMenuRenderer(&display, &g_timeSync);
-  MenuRenderer* showTimeMenuRenderer = new SSD1327ShowTimeMenuRenderer(&display);
 #endif
 
   // Run Menus

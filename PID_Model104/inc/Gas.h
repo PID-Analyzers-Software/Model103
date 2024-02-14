@@ -3,17 +3,14 @@
 class Gas
 {
 	String m_name;	
-	double m_slope;
 	double m_intercept;
-	double m_secondp;
+	double m_slope;
 	
 public:
-	
-	void setSlope(double s) { m_slope = s; }
-	void setIntercept(double i) { m_intercept = i; }
-    void setSecondp(double p) { m_secondp = p; }
+    void setIntercept(double i) { m_intercept = i; }
+    void setSlope(double p) { m_slope = p; }
 
     double calculateSLM(int voltage) {
-		return (voltage + m_intercept ) / m_secondp;
+		return (voltage + m_intercept ) / m_slope;
     }
 };

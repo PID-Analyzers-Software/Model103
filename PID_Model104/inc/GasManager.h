@@ -14,9 +14,8 @@
 class Gas
 {
     String m_name;
-    double m_slope;
     double m_intercept;
-    double m_secondp;
+    double m_slope;
     double m_thermalConductivity;
 public:
 
@@ -41,15 +40,14 @@ class GasManager : public ParamChangeListener
 
     int m_selectedGas = 0;
 
-    double m_slope;
     double m_intercept;
-    double m_secondp;
+    double m_slope;
     double m_intercept2;
-    double m_secondp2;
+    double m_slope2;
     double m_intercept3;
-    double m_secondp3;
+    double m_slope3;
     double m_intercept4;
-    double m_secondp4;
+    double m_slope4;
     double m_zero;
     double m_calgas;
 
@@ -57,59 +55,56 @@ class GasManager : public ParamChangeListener
     ConfigurationManager* m_configurationManager;
 
 public:
-    GasManager(double slope, double intercept, double secondp,
-               double zero, double calgas, double intercept2,double secondp2,
-               double intercept3,double secondp3,double intercept4,double secondp4) : m_slope(slope),
+    GasManager(double intercept, double slope,
+               double zero, double calgas, double intercept2,double slope2,
+               double intercept3,double slope3,double intercept4,double slope4) : 
                                                                                       m_intercept(intercept),
-                                                                                      m_secondp(secondp),
+                                                                                      m_slope(slope),
                                                                                       m_intercept2(intercept2),
-                                                                                      m_secondp2(secondp2),
+                                                                                      m_slope2(slope2),
                                                                                       m_intercept3(intercept3),
-                                                                                      m_secondp3(secondp3),
+                                                                                      m_slope3(slope3),
                                                                                       m_intercept4(intercept4),
-                                                                                      m_secondp4(secondp4),
+                                                                                      m_slope4(slope4),
                                                                                       m_zero(zero),
                                                                                       m_calgas(calgas)
     {}
 
     ~GasManager() {}
 
-    double getSlope() const { return m_slope; }
     double getIntercept() const { return m_intercept; }
-    double getSecondp() const { return m_secondp; }
+    double getSlope() const { return m_slope; }
     double getIntercept2() const { return m_intercept2; }
-    double getSecondp2() const { return m_secondp2; }
+    double getSlope2() const { return m_slope2; }
     double getIntercept3() const { return m_intercept3; }
-    double getSecondp3() const { return m_secondp3; }
+    double getSlope3() const { return m_slope3; }
     double getIntercept4() const { return m_intercept4; }
-    double getSecondp4() const { return m_secondp4; }
+    double getSlope4() const { return m_slope4; }
     double getZero() const {return m_zero; }
     double getCalgas() const {return m_calgas; }
 
-    void setSlope(double s) { m_slope = s; }
     void setIntercept(double i) { m_intercept = i; }
-    void setSecondp(double p) {m_secondp = p; }
+    void setSlope(double p) {m_slope = p; }
     void setIntercept2(double ii) { m_intercept2 = ii; }
-    void setSecondp2(double pp) {m_secondp2 = pp; }
+    void setSlope2(double pp) {m_slope2 = pp; }
     void setIntercept3(double iii) { m_intercept3 = iii; }
-    void setSecondp3(double ppp) {m_secondp3 = ppp; }
+    void setSlope3(double ppp) {m_slope3 = ppp; }
     void setIntercept4(double iiii) { m_intercept4 = iiii; }
-    void setSecondp4(double pppp) {m_secondp4 = pppp; }
+    void setSlope4(double pppp) {m_slope4 = pppp; }
     void setZero(double z) {m_zero = z; }
     void setCalgas(double c) {m_calgas = c;}
 
 
     double calculateSLM(double voltage) {
-        //double val = (voltage*voltage*m_slope + voltage*m_secondp + m_intercept ) * getSelectedGas().getThermalConductivity();
         double val = 0;
         if(m_selectedGas==0){
-            val = ((voltage - m_intercept ) / m_secondp) * 1000 ; //votlage in volts
+            val = ((voltage - m_intercept ) / m_slope) * 1000 ; //votlage in volts
         }else if(m_selectedGas==1){
-            val = ((voltage - m_intercept2 ) / m_secondp2) * 1000 ; //votlage in volts
+            val = ((voltage - m_intercept2 ) / m_slope2) * 1000 ; //votlage in volts
         }else if(m_selectedGas==2){
-            val = ((voltage - m_intercept3 ) / m_secondp3) * 1000 ; //votlage in volts
+            val = ((voltage - m_intercept3 ) / m_slope3) * 1000 ; //votlage in volts
         }else if(m_selectedGas==3){
-            val = ((voltage - m_intercept4 ) / m_secondp4) * 1000 ; //votlage in volts
+            val = ((voltage - m_intercept4 ) / m_slope4) * 1000 ; //votlage in volts
         }
         return val < 0 ? 0 : val;
     }
@@ -177,32 +172,32 @@ public:
         double calgasv = calvalue/1000.0;
         Serial.println(calvalue);
         Serial.println(calgasv);
-        m_secondp = (m_calgas - m_zero) / calgasv;
+        m_slope = (m_calgas - m_zero) / calgasv;
         if(m_selectedGas==0) {
-            m_secondp = (m_calgas - m_zero) / calgasv;
+            m_slope = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 1");
-            Serial.println(m_secondp);
-            EEPROM.writeDouble(20+m_selectedGas*16, m_secondp);
+            Serial.println(m_slope);
+            EEPROM.writeDouble(20+m_selectedGas*16, m_slope);
             EEPROM.commit();
-            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_secondp);
+            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope);
         }else if(m_selectedGas ==1){
-            m_secondp2 = (m_calgas - m_zero) / calgasv;
+            m_slope2 = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 2");
-            EEPROM.writeDouble(20+m_selectedGas*16, m_secondp2);
+            EEPROM.writeDouble(20+m_selectedGas*16, m_slope2);
             EEPROM.commit();
-            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_secondp2);
+            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope2);
         }else if(m_selectedGas ==2){
-            m_secondp3 = (m_calgas - m_zero) / calgasv;
+            m_slope3 = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 3");
-            EEPROM.writeDouble(20+m_selectedGas*16, m_secondp3);
+            EEPROM.writeDouble(20+m_selectedGas*16, m_slope3);
             EEPROM.commit();
-            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_secondp3);
+            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope3);
         }else if(m_selectedGas ==3){
-            m_secondp4 = (m_calgas - m_zero) / calgasv;
+            m_slope4 = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 4");
-            EEPROM.writeDouble(20+m_selectedGas*16, m_secondp4);
+            EEPROM.writeDouble(20+m_selectedGas*16, m_slope4);
             EEPROM.commit();
-            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_secondp4);
+            Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope4);
         }
 
     }
@@ -231,50 +226,45 @@ public:
 
         Serial.println("onGasParamChange: " + param + "=" + value);
 
-        if(param.equals(c_SLOPE_PARAM_NAME))
-        {
-            m_slope = value.toDouble();
-            Serial.println("Setting SLOPE: " + value);
-        }
-        else if(param.equals(c_INTERCEPT_PARAM_NAME))
+        if(param.equals(c_INTERCEPT_PARAM_NAME))
         {
             m_intercept = value.toDouble();
             Serial.println("Setting INTERCEPT: " + value);
         }
-        else if(param.equals(c_SECONDP_PARAM_NAME))
+        else if(param.equals(c_SLOPE_PARAM_NAME))
         {
-            m_secondp = value.toDouble();
-            Serial.println("Setting SECONDP: " + value);
+            m_slope = value.toDouble();
+            Serial.println("Setting SLOPE: " + value);
         }
         else if(param.equals(c_INTERCEPT2_PARAM_NAME))
         {
             m_intercept2 = value.toDouble();
             Serial.println("Setting INTERCEPT2: " + value);
         }
-        else if(param.equals(c_SECONDP2_PARAM_NAME))
+        else if(param.equals(c_SLOPE2_PARAM_NAME))
         {
-            m_secondp2 = value.toDouble();
-            Serial.println("Setting SECONDP2: " + value);
+            m_slope2 = value.toDouble();
+            Serial.println("Setting SLOPE2: " + value);
         }
         else if(param.equals(c_INTERCEPT3_PARAM_NAME))
         {
             m_intercept3 = value.toDouble();
             Serial.println("Setting INTERCEPT3: " + value);
         }
-        else if(param.equals(c_SECONDP3_PARAM_NAME))
+        else if(param.equals(c_SLOPE3_PARAM_NAME))
         {
-            m_secondp3 = value.toDouble();
-            Serial.println("Setting SECONDP3: " + value);
+            m_slope3 = value.toDouble();
+            Serial.println("Setting SLOPE3: " + value);
         }
         else if(param.equals(c_INTERCEPT4_PARAM_NAME))
         {
             m_intercept4 = value.toDouble();
             Serial.println("Setting INTERCEPT4: " + value);
         }
-        else if(param.equals(c_SECONDP4_PARAM_NAME))
+        else if(param.equals(c_SLOPE4_PARAM_NAME))
         {
-            m_secondp4 = value.toDouble();
-            Serial.println("Setting SECONDP4: " + value);
+            m_slope4 = value.toDouble();
+            Serial.println("Setting SLOPE4: " + value);
         }
         else if(param.equals(c_GASINDEX_PARAM_NAME))
         {

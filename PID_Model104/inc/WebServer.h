@@ -268,8 +268,7 @@ public:
 		
 		client.println("<hr style=\"height:2px;border-width:0;color:gray;background-color:gray\">");
 		client.println("<label for=\"fname\">Calibration parameters:</label><br>");
-        client.println("<label for=\"fname\">Slope: </label>");
-        client.println("<input type=\"text\" id=\"secondp\" name=\"SECONDP\" value=\"" + String(m_gasManager->getSecondp(), 6) + "\"></br>");
+        client.println("<input type=\"text\" id=\"slope\" name=\"SLOPE\" value=\"" + String(m_gasManager->getSlope(), 6) + "\"></br>");
 
 		client.println("<label for=\"fname\">Intersect:</label>");
 		client.println("<input type=\"text\" id=\"intersect\" name=\"INTERCEPT\" value=\"" + String(m_gasManager->getIntercept(), 6) + "\"><p>");

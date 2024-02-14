@@ -36,12 +36,7 @@ void ConfigurationManager::loadFromEEPROM()
     Serial.println("config: gas index: " + String(gasIndex));
     notifyParamChanged(c_GASINDEX_PARAM_NAME, String(gasIndex));
 
-    // SLOPE
-	double slope = -1;
-	slope = EEPROM.readDouble(EEPROM_GAS_SLOPE_OFFSET);
-	if(slope != -1)
-		notifyParamChanged(c_SLOPE_PARAM_NAME, String(slope));
-	Serial.println("config: slope: " + String(slope));
+
 	// INTERCEPT
 	double intercept = -1;
 	intercept = EEPROM.readDouble(EEPROM_GAS_INTERCEPT_OFFSET);		
@@ -67,32 +62,32 @@ void ConfigurationManager::loadFromEEPROM()
         notifyParamChanged(c_INTERCEPT4_PARAM_NAME, String(intercept4));
     Serial.println("config: intercept4: " + String(intercept4));
 
-	//secondP
-    double secondp = -1;
-    secondp = EEPROM.readDouble(EEPROM_GAS_SECONDP_OFFSET);
-    if(secondp != -1)
-        notifyParamChanged(c_SECONDP_PARAM_NAME, String(secondp));
-    Serial.println("config: secondp: " + String(secondp));
+	//Slope
+    double slope = -1;
+    slope = EEPROM.readDouble(EEPROM_GAS_SLOPE_OFFSET);
+    if(slope != -1)
+        notifyParamChanged(c_SLOPE_PARAM_NAME, String(slope));
+    Serial.println("config: slope: " + String(slope));
 
 
-    //secondp2
-    double secondp2 = -1;
-    secondp2 = EEPROM.readDouble(EEPROM_GAS_SECONDP2_OFFSET);
-    if(secondp2 != -1)
-        notifyParamChanged(c_SECONDP2_PARAM_NAME, String(secondp2));
-    Serial.println("config: secondp2: " + String(secondp2));
+    //slope2
+    double slope2 = -1;
+    slope2 = EEPROM.readDouble(EEPROM_GAS_SLOPE2_OFFSET);
+    if(slope2 != -1)
+        notifyParamChanged(c_SLOPE2_PARAM_NAME, String(slope2));
+    Serial.println("config: slope2: " + String(slope2));
 
-    double secondp3 = -1;
-    secondp3 = EEPROM.readDouble(EEPROM_GAS_SECONDP3_OFFSET);
-    if(secondp3 != -1)
-        notifyParamChanged(c_SECONDP3_PARAM_NAME, String(secondp3));
-    Serial.println("config: secondp3: " + String(secondp3));
+    double slope3 = -1;
+    slope3 = EEPROM.readDouble(EEPROM_GAS_SLOPE3_OFFSET);
+    if(slope3 != -1)
+        notifyParamChanged(c_SLOPE3_PARAM_NAME, String(slope3));
+    Serial.println("config: slope3: " + String(slope3));
 
-    double secondp4 = -1;
-    secondp4 = EEPROM.readDouble(EEPROM_GAS_SECONDP4_OFFSET);
-    if(secondp4 != -1)
-        notifyParamChanged(c_SECONDP4_PARAM_NAME, String(secondp4));
-    Serial.println("config: secondp4: " + String(secondp4));
+    double slope4 = -1;
+    slope4 = EEPROM.readDouble(EEPROM_GAS_SLOPE4_OFFSET);
+    if(slope4 != -1)
+        notifyParamChanged(c_SLOPE4_PARAM_NAME, String(slope4));
+    Serial.println("config: slope4: " + String(slope4));
 
 	/*
 		Gas TCs
@@ -174,21 +169,16 @@ void ConfigurationManager::notifyParamChanged(String param, String value)
 
 void ConfigurationManager::onParamChange(String param, String value)
 {
-	if (param.equals(c_SLOPE_PARAM_NAME))
-	{
-		Serial.println("EEPROM save SLOPE: " + value);
-		EEPROM.writeDouble(EEPROM_GAS_SLOPE_OFFSET, value.toDouble());
-	}
 
-	else if (param.equals(c_INTERCEPT_PARAM_NAME))
+	if (param.equals(c_INTERCEPT_PARAM_NAME))
 	{
 		Serial.println("EEPROM save INTERCEPT: " + value);
 		EEPROM.writeDouble(EEPROM_GAS_INTERCEPT_OFFSET, value.toDouble());
 	}
-    else if (param.equals(c_SECONDP_PARAM_NAME))
+    else if (param.equals(c_SLOPE_PARAM_NAME))
     {
-        Serial.println("EEPROM save SECONDP: " + value);
-        EEPROM.writeDouble(EEPROM_GAS_SECONDP_OFFSET, value.toDouble());
+        Serial.println("EEPROM save SLOPE: " + value);
+        EEPROM.writeDouble(EEPROM_GAS_SLOPE_OFFSET, value.toDouble());
     }
 
 
@@ -199,17 +189,7 @@ void ConfigurationManager::onParamChange(String param, String value)
 	notifyParamChanged(param, value);
 }
 
-void ConfigurationManager::saveSlopeToEEPROM(double slope, bool doCommit)
-{
-	if(m_loadAllInProgress)
-		return;
-	
-	Serial.println("EEPROM saveSlopeToEEPROM: " + String(slope));
-	size_t written = EEPROM.writeDouble(EEPROM_GAS_SLOPE_OFFSET, slope);
-	Serial.println("EEPROM written: " + String(written));
-	if(doCommit && !EEPROM.commit())
-		Serial.println("EEPROM commit ERROR!!!");
-}
+
 
 void ConfigurationManager:: saveInterceptToEEPROM(double intercept, bool doCommit)
 {
@@ -222,12 +202,12 @@ void ConfigurationManager:: saveInterceptToEEPROM(double intercept, bool doCommi
 		Serial.println("EEPROM commit ERROR!!!");
 }
 
-void ConfigurationManager:: saveSecondpToEEPROM(double secondp, bool doCommit)
+void ConfigurationManager:: saveSlopeToEEPROM(double slope, bool doCommit)
 {
     if(m_loadAllInProgress)
         return;
-    Serial.println("EEPROM saveSecondpToEEPROM: " + String(secondp));
-    size_t written = EEPROM.writeDouble(EEPROM_GAS_SECONDP_OFFSET, secondp);
+    Serial.println("EEPROM saveSlopeToEEPROM: " + String(slope));
+    size_t written = EEPROM.writeDouble(EEPROM_GAS_SLOPE_OFFSET, slope);
     Serial.println("EEPROM written: " + String(written));
     if(doCommit && !EEPROM.commit())
         Serial.println("EEPROM commit ERROR!!!");
