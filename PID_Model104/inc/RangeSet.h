@@ -52,7 +52,7 @@ public:
         if(index >= 0 && index < m_rangeArray.size())
         {
             m_selectedRange = index;
-            EEPROM.writeInt(132, index);
+            EEPROM.writeInt(72, index);
             EEPROM.commit();
             Serial.print("Range saved ");
             Serial.println(index);
@@ -93,7 +93,7 @@ public:
     }
 
     int getSelectedRange() {
-        int range = EEPROM.read(132);
+        int range = EEPROM.read(72);
         return m_rangeArray[range];
     }
 

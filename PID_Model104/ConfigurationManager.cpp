@@ -24,15 +24,15 @@ void ConfigurationManager::loadFromEEPROM()
 	
 	//m_sleepTimer->selectIntervalByValue( timerInterval );	
 
-    int range = EEPROM.read(132);
+    int range = EEPROM.read(72);
     Serial.println("config: range: " + String(range));
     notifyParamChanged(c_RANGE_PARAM_NAME, String(range));
 
-    int alarm = EEPROM.read(162);
+    int alarm = EEPROM.read(76);
     Serial.println("config: alarm: " + String(alarm));
     notifyParamChanged(c_ALARM_PARAM_NAME, String(alarm));
 
-    int gasIndex = EEPROM.readInt(80);
+    int gasIndex = EEPROM.readInt(4);
     Serial.println("config: gas index: " + String(gasIndex));
     notifyParamChanged(c_GASINDEX_PARAM_NAME, String(gasIndex));
 
@@ -45,19 +45,19 @@ void ConfigurationManager::loadFromEEPROM()
 	Serial.println("config: intercept: " + String(intercept));
 
     double intercept2 = -1;
-    intercept2 = EEPROM.readDouble(EEPROM_GAS_INTERCEPT_OFFSET);
+    intercept2 = EEPROM.readDouble(EEPROM_GAS_INTERCEPT2_OFFSET);
     if(intercept2 != -1)
         notifyParamChanged(c_INTERCEPT2_PARAM_NAME, String(intercept2));
     Serial.println("config: intercept2: " + String(intercept2));
 
     double intercept3 = -1;
-    intercept3 = EEPROM.readDouble(EEPROM_GAS_INTERCEPT_OFFSET);
+    intercept3 = EEPROM.readDouble(EEPROM_GAS_INTERCEPT3_OFFSET);
     if(intercept3 != -1)
         notifyParamChanged(c_INTERCEPT3_PARAM_NAME, String(intercept3));
     Serial.println("config: intercept3: " + String(intercept3));
 
     double intercept4 = -1;
-    intercept4 = EEPROM.readDouble(EEPROM_GAS_INTERCEPT_OFFSET);
+    intercept4 = EEPROM.readDouble(EEPROM_GAS_INTERCEPT4_OFFSET);
     if(intercept4 != -1)
         notifyParamChanged(c_INTERCEPT4_PARAM_NAME, String(intercept4));
     Serial.println("config: intercept4: " + String(intercept4));
@@ -229,7 +229,7 @@ void ConfigurationManager::saveTimerIntervalToEEPROM(int interval, bool doCommit
  {
 
      Serial.println("EEPROM saveRangeToEEPROM: " + String(range));
-     EEPROM.writeInt(132, range);
+     EEPROM.writeInt(72, range);
      EEPROM.commit();
  }
 
@@ -237,7 +237,7 @@ void ConfigurationManager::saveTimerIntervalToEEPROM(int interval, bool doCommit
  {
 
      Serial.println("EEPROM saveAlarmToEEPROM: " + String(alarm));
-     EEPROM.writeInt(162, alarm);
+     EEPROM.writeInt(76, alarm);
      EEPROM.commit();
  }
 
@@ -246,7 +246,7 @@ void ConfigurationManager::saveTimerIntervalToEEPROM(int interval, bool doCommit
  {
 
      Serial.println("EEPROM saveCalvalueToEEPROM: " + String(calvalue));
-     EEPROM.writeInt(196, calvalue);
+     EEPROM.writeInt(80, calvalue);
      EEPROM.commit();
 
  }

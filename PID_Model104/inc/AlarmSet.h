@@ -52,7 +52,7 @@ public:
         if(index >= 0 && index < m_alarmArray.size())
         {
             m_selectedAlarm = index;
-            EEPROM.writeInt(162, index);
+            EEPROM.writeInt(76, index);
             EEPROM.commit();
             Serial.print("Alarm saved ");
             Serial.println(index);
@@ -93,7 +93,7 @@ public:
     }
 
     int getSelectedAlarm() {
-        int alarm = EEPROM.read(162);
+        int alarm = EEPROM.read(76);
         return m_alarmArray[alarm];
     }
 

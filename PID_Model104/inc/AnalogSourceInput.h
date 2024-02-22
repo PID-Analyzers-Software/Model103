@@ -45,16 +45,15 @@ public:
 
         if(now - m_lastReadValueTick > 1000 / m_refreshRate)
         {
-            const int numReadings  = 2;
-            long total  = 0;
+            const int numReadings = 4;  // Change number of readings to 4 for moving average
+            long total = 0;
             m_lastReadValueTick = now;
-            const float multiplier = 0.125F; //GAIN 1
+            const float multiplier = 0.125F; // GAIN 1
 
-            for (int i = 0; i<numReadings; i++) {
-                total = total +m_ads1115->readADC_SingleEnded(0) * multiplier;
+            for (int i = 0; i < numReadings; i++) {
+                total += m_ads1115->readADC_SingleEnded(0) * multiplier;
             }
-            m_lastReadValue = total / numReadings;
-
+            m_lastReadValue = total / numReadings;  // Average the total by the number of readings
         }
         return m_lastReadValue;
     }

@@ -38,7 +38,7 @@ class GasManager : public ParamChangeListener
 {
     std::vector<Gas> m_gases;
 
-    int m_selectedGas = 0;
+    int m_selectedGas =EEPROM.readInt(4);
 
     double m_intercept;
     double m_slope;
@@ -127,7 +127,7 @@ public:
             m_selectedGas = index;
             //m_configurationManager->saveGasSelectedToEEPROM(index);
             Serial.println("gas index saved"+index);
-            EEPROM.writeInt(80, index);
+            EEPROM.writeInt(4, index);
             EEPROM.commit();
         }
     }
@@ -138,25 +138,25 @@ public:
         if(m_selectedGas==0) {
             m_intercept = m_zero;
             Serial.println("calibrating for gas 1");
-            EEPROM.writeDouble(12+m_selectedGas*16, m_intercept);
+            EEPROM.put(8+m_selectedGas*16, m_intercept);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_intercept);
         }else if(m_selectedGas ==1){
             m_intercept2 = m_zero;
             Serial.println("calibrating for gas 2");
-            EEPROM.writeDouble(12+m_selectedGas*16, m_intercept2);
+            EEPROM.put(8+m_selectedGas*16, m_intercept2);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_intercept2);
         }else if(m_selectedGas ==2){
             m_intercept3 = m_zero;
             Serial.println("calibrating for gas 3");
-            EEPROM.writeDouble(12+m_selectedGas*16, m_intercept3);
+            EEPROM.put(8+m_selectedGas*16, m_intercept3);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_intercept3);
         }else if(m_selectedGas ==3){
             m_intercept4 = m_zero;
             Serial.println("calibrating for gas 4");
-            EEPROM.writeDouble(12+m_selectedGas*16, m_intercept4);
+            EEPROM.put(8+m_selectedGas*16, m_intercept4);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_intercept4);
         }
@@ -177,25 +177,25 @@ public:
             m_slope = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 1");
             Serial.println(m_slope);
-            EEPROM.writeDouble(20+m_selectedGas*16, m_slope);
+            EEPROM.put(16+m_selectedGas*16, m_slope);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope);
         }else if(m_selectedGas ==1){
             m_slope2 = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 2");
-            EEPROM.writeDouble(20+m_selectedGas*16, m_slope2);
+            EEPROM.put(16+m_selectedGas*16, m_slope2);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope2);
         }else if(m_selectedGas ==2){
             m_slope3 = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 3");
-            EEPROM.writeDouble(20+m_selectedGas*16, m_slope3);
+            EEPROM.put(16+m_selectedGas*16, m_slope3);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope3);
         }else if(m_selectedGas ==3){
             m_slope4 = (m_calgas - m_zero) / calgasv;
             Serial.println("calibrating for gas 4");
-            EEPROM.writeDouble(20+m_selectedGas*16, m_slope4);
+            EEPROM.put(16+m_selectedGas*16, m_slope4);
             EEPROM.commit();
             Serial.print("Factors Saved to EEPROM: "); Serial.println(m_slope4);
         }

@@ -52,7 +52,7 @@ public:
         if(index >= 0 && index < m_calvalueArray.size())
         {
             m_selectedCalvalue = index;
-            EEPROM.writeInt(150, index);
+            EEPROM.writeInt(80, index);
             EEPROM.commit();
             Serial.print("Calvalue saved ");
             Serial.println(index);
@@ -93,7 +93,7 @@ public:
     }
 
     int getSelectedCalvalue() {
-        int calvalue = EEPROM.read(150);
+        int calvalue = EEPROM.read(80);
         return m_calvalueArray[calvalue];
     }
 
